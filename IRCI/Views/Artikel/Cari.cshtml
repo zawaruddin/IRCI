@@ -1,0 +1,62 @@
+﻿@model ArtikelViewModel
+
+@{
+    ViewBag.Title = Model.title;
+}
+
+<h2>@Model.title</h2>
+
+<p>@Model.message</p>
+
+<nav>
+    <ul class="pager">
+        @if (Model.page > 1)
+        {
+            var prevUrl = Url.Action("Cari", new { filter = Model.keyword, page = Model.page - 1 });
+
+            <li><a href="@prevUrl">Prev</a></li>
+        }
+
+        @if (Model.page < Model.totalPage)
+        {
+            var nextUrl = Url.Action("Cari", new { filter = Model.keyword, page = Model.page + 1 });
+
+            <li><a href="@nextUrl">Next</a></li>
+        }
+
+    </ul>
+</nav>
+
+<table class="table">
+    <tr>
+        <th>
+            Id Record
+        </th>
+        <th>
+            Judul
+        </th>
+        <th>
+            Penulis
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Record)
+    {
+        <tr>
+            <td>
+                @item.IdRecord
+            </td>
+            <td>
+                @item.Title
+            </td>
+            <td>
+                @item.Author
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { item.IdRecord }) |
+            </td>
+        </tr>
+    }
+
+</table>
